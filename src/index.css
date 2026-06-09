@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scale down to fit smaller screens */
+@media (max-width: 1920px) {
+  html {
+    transform-origin: top left;
+    transform: scale(calc(100vw / 1920));
+  }
+}
