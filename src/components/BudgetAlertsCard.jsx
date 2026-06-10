@@ -155,7 +155,7 @@ function COATable({ property, onBackToAll, onViewTransactions, mode }) {
         <div className="flex flex-col flex-1 min-w-0">
           <div className="flex items-center h-[32px] border-b border-[#e0e3e7] px-[8px]">
             <span className="font-semibold text-[14px] leading-[18px] text-[#6a6e73] tracking-[0.16px]">
-              Budget <span className="font-semibold text-[12px] tracking-[0.16px]">(% / $)</span>
+              Budget
             </span>
           </div>
           {coas.map(c => (
