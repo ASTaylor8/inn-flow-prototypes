@@ -18,7 +18,7 @@ function Toast({ message, onDismiss }) {
   )
 }
 
-export default function HomePage({ onViewTransactions, onViewSchedule, onViewAPInbox }) {
+export default function HomePage({ onViewTransactions, onViewSchedule, onViewAPInbox, mode }) {
   const [drawer, setDrawer] = useState({ open: false, variant: null, data: null })
   const [toast, setToast] = useState(null)
 
@@ -49,9 +49,6 @@ export default function HomePage({ onViewTransactions, onViewSchedule, onViewAPI
               </div>
             </div>
             <div className="flex gap-[16px] items-center shrink-0">
-              <button className="bg-[#2caf92] flex gap-[10px] h-[40px] items-center justify-center px-[16px] py-[4px] rounded-[3px] hover:bg-[#259f84] transition-colors">
-                <span className="font-bold leading-[18px] text-[14px] text-white whitespace-nowrap">Add Widget</span>
-              </button>
               <button className="border border-[#2caf92] border-solid flex gap-[10px] h-[40px] items-center justify-center px-[16px] py-[4px] rounded-[3px] hover:bg-[#f0faf8] transition-colors">
                 <div className="overflow-clip relative shrink-0 size-[18px]">
                   <div className="absolute inset-[41.67%_16.67%]">
@@ -82,9 +79,9 @@ export default function HomePage({ onViewTransactions, onViewSchedule, onViewAPI
             </div>
 
             <div className="flex flex-col gap-[16px] items-end w-full">
-              <BudgetAlertsCard onViewTransactions={onViewTransactions} />
-              <LaborCostsCard onViewSchedule={onViewSchedule} />
-              <MissingExpensesCard onViewAPInbox={onViewAPInbox} />
+              <BudgetAlertsCard onViewTransactions={onViewTransactions} mode={mode} />
+              <LaborCostsCard onViewSchedule={onViewSchedule} mode={mode} />
+              <MissingExpensesCard onViewAPInbox={onViewAPInbox} mode={mode} />
             </div>
           </div>
 
@@ -104,7 +101,6 @@ export default function HomePage({ onViewTransactions, onViewSchedule, onViewAPI
 
             <div className="flex flex-col gap-[16px] items-end w-full">
               <WebinarCard onRegister={handleRegister} />
-              <MaintenanceCard />
             </div>
           </div>
         </div>

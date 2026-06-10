@@ -62,7 +62,7 @@ function Logo() {
   )
 }
 
-export default function Sidebar({ activeNav, onNavChange }) {
+export default function Sidebar({ activeNav, onNavChange, mode, onModeToggle }) {
   return (
     <div className="bg-[#101828] flex flex-col h-full w-[280px] shrink-0 pt-[28px] relative">
       {/* Top section */}
@@ -169,16 +169,31 @@ export default function Sidebar({ activeNav, onNavChange }) {
       {/* Bottom section */}
       <div className="flex flex-col gap-[16px] items-start justify-end px-[16px] mt-auto pb-[16px]">
         {/* Settings */}
-        <button className="flex gap-[34px] h-[32px] items-center justify-center pl-[6px] w-full rounded-[3px] hover:bg-[#1d2939] transition-colors">
-          <img src={settingsIcon} alt="" className="shrink-0 size-[24px]" />
+        <button className="flex gap-[38px] h-[32px] items-center overflow-clip pl-[6px] w-full rounded-[3px] hover:bg-[#1d2939] transition-colors">
+          <img src={settingsIcon} alt="" className="shrink-0 size-[20px]" />
           <span className="font-normal text-[16px] leading-[22px] text-white whitespace-nowrap">Administration</span>
         </button>
 
         {/* Help */}
-        <button className="flex gap-[34px] h-[32px] items-center justify-center pl-[6px] w-full rounded-[3px] hover:bg-[#1d2939] transition-colors">
-          <img src={helpIcon} alt="" className="shrink-0 size-[24px]" />
+        <button className="flex gap-[38px] h-[32px] items-center overflow-clip pl-[6px] w-full rounded-[3px] hover:bg-[#1d2939] transition-colors">
+          <img src={helpIcon} alt="" className="shrink-0 size-[20px]" />
           <span className="font-normal text-[16px] leading-[22px] text-white whitespace-nowrap">Help</span>
         </button>
+
+        {/* Prototype mode toggle */}
+        {onModeToggle && (
+          <button
+            onClick={onModeToggle}
+            className="flex items-center gap-[8px] w-full px-[6px] py-[6px] rounded-[3px] hover:bg-[#1d2939] transition-colors group"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#98a2b3] shrink-0">
+              <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+            </svg>
+            <span className="text-[11px] leading-[14px] text-[#98a2b3] group-hover:text-white transition-colors">
+              {mode === 'multi' ? 'Single Property View' : 'Multi Property View'}
+            </span>
+          </button>
+        )}
 
         {/* User row */}
         <div className="flex items-center overflow-clip py-[13px] w-full gap-[12px]">

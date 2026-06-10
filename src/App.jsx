@@ -8,6 +8,7 @@ import APInboxPage from './components/APInboxPage'
 
 export default function App() {
   const [activeNav, setActiveNav] = useState('home')
+  const [mode, setMode] = useState('multi') // 'multi' | 'single'
   const [page, setPage] = useState('home') // 'home' | 'transaction' | 'schedule' | 'apinbox'
   const [transactionCtx, setTransactionCtx] = useState(null) // { property, coa }
   const [scheduleCtx, setScheduleCtx] = useState(null) // { property, department }
@@ -86,9 +87,9 @@ export default function App() {
 
   return (
     <div className="flex h-full w-full bg-white overflow-hidden">
-      <Sidebar activeNav={activeNav} onNavChange={setActiveNav} />
+      <Sidebar activeNav={activeNav} onNavChange={setActiveNav} mode={mode} onModeToggle={() => setMode(m => m === 'multi' ? 'single' : 'multi')} />
       <div className="flex flex-1 min-w-0 min-h-0 overflow-hidden">
-        <HomePage onViewTransactions={handleViewTransactions} onViewSchedule={handleViewSchedule} onViewAPInbox={handleViewAPInbox} />
+        <HomePage onViewTransactions={handleViewTransactions} onViewSchedule={handleViewSchedule} onViewAPInbox={handleViewAPInbox} mode={mode} />
         <TasksPanel />
       </div>
     </div>

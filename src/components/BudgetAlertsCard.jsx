@@ -108,12 +108,24 @@ function PropertyTable({ onSelectProperty }) {
   )
 }
 
-function COATable({ property, onBackToAll, onViewTransactions }) {
-  const coas = COA_DATA[property.code] || []
+function COATable({ property, onBackToAll, onViewTransactions, mode }) {
+  const rawCoas = COA_DATA[property.code] || []
+  const coas = [...rawCoas].sort((a, b) => {
+    // over budget always before warn
+    if (a.status !== b.status) return a.status === 'over' ? -1 : 1
+    // within 'over': sort by numeric amount descending
+    if (a.status === 'over') {
+      const aAmt = parseFloat(a.amount.replace(/[^0-9.]/g, '')) || 0
+      const bAmt = parseFloat(b.amount.replace(/[^0-9.]/g, '')) || 0
+      return bAmt - aAmt
+    }
+    // within 'warn': sort by pct descending
+    return b.pct - a.pct
+  })
   return (
     <>
       {/* Breadcrumb */}
-      <div className="flex gap-[8px] items-center mt-[4px] mb-[0px]">
+      {mode !== 'single' && <div className="flex gap-[8px] items-center mt-[4px] mb-[0px]">
         <button
           onClick={onBackToAll}
           className="font-semibold text-[14px] leading-[18px] text-[#6a6e73] underline decoration-solid hover:text-[#2caf92] transition-colors"
@@ -122,7 +134,7 @@ function COATable({ property, onBackToAll, onViewTransactions }) {
         </button>
         <span className="font-normal text-[14px] leading-[18px] text-[#6a6e73] opacity-30">/</span>
         <span className="font-semibold text-[14px] leading-[18px] text-[#6a6e73]">{property.code}</span>
-      </div>
+      </div>}
 
       {/* COA table */}
       <div className="flex items-start w-full">
@@ -179,13 +191,18 @@ function COATable({ property, onBackToAll, onViewTransactions }) {
 }
 
 // view: 'collapsed' | 'expanded' | 'drilldown'
-export default function BudgetAlertsCard({ onViewTransactions }) {
+export default function BudgetAlertsCard({ onViewTransactions, mode }) {
   const [view, setView] = useState('collapsed')
   const [selectedProperty, setSelectedProperty] = useState(null)
 
   function handleToggle() {
     if (view === 'collapsed') {
-      setView('expanded')
+      if (mode === 'single') {
+        setSelectedProperty(PROPERTIES[0])
+        setView('drilldown')
+      } else {
+        setView('expanded')
+      }
     } else {
       setView('collapsed')
       setSelectedProperty(null)
@@ -222,7 +239,9 @@ export default function BudgetAlertsCard({ onViewTransactions }) {
           <div className="flex items-start overflow-clip w-full">
             <div className="flex flex-1 flex-col items-start min-w-0">
               <p className="font-semibold leading-[22px] text-[16px] text-[#1d1e20] w-full">Budget Insights</p>
-              <p className="font-normal leading-[18px] text-[14px] text-[#6a6e73] w-full">5 Properties • 19 COAs</p>
+              <p className="font-normal leading-[18px] text-[14px] text-[#6a6e73] w-full">
+                {mode === 'single' ? `${(COA_DATA[PROPERTIES[0].code] || []).length} COAs` : '5 Properties • 19 COAs'}
+              </p>
             </div>
           </div>
 
@@ -248,7 +267,7 @@ export default function BudgetAlertsCard({ onViewTransactions }) {
 
           {/* Drilldown: COA table */}
           {view === 'drilldown' && selectedProperty && (
-            <COATable property={selectedProperty} onBackToAll={handleBackToAll} onViewTransactions={onViewTransactions} />
+            <COATable property={selectedProperty} onBackToAll={handleBackToAll} onViewTransactions={onViewTransactions} mode={mode} />
           )}
         </div>
       </div>

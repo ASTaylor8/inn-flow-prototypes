@@ -90,12 +90,12 @@ function PropertyTable({ onSelectProperty }) {
   )
 }
 
-function DepartmentTable({ property, onBackToAll, onViewSchedule }) {
+function DepartmentTable({ property, onBackToAll, onViewSchedule, mode }) {
   const depts = DEPT_DATA[property.code] || []
   return (
     <>
       {/* Breadcrumb */}
-      <div className="flex gap-[8px] items-center mt-[4px]">
+      {mode !== 'single' && <div className="flex gap-[8px] items-center mt-[4px]">
         <button
           onClick={onBackToAll}
           className="font-semibold text-[14px] leading-[18px] text-[#6a6e73] underline decoration-solid hover:text-[#2caf92] transition-colors"
@@ -104,7 +104,7 @@ function DepartmentTable({ property, onBackToAll, onViewSchedule }) {
         </button>
         <span className="font-normal text-[14px] leading-[18px] text-[#6a6e73] opacity-30">/</span>
         <span className="font-semibold text-[14px] leading-[18px] text-[#6a6e73]">{property.code}</span>
-      </div>
+      </div>}
 
       {/* Department table */}
       <div className="flex items-start w-full">
@@ -159,13 +159,18 @@ function DepartmentTable({ property, onBackToAll, onViewSchedule }) {
 }
 
 // view: 'collapsed' | 'expanded' | 'drilldown'
-export default function LaborCostsCard({ onViewSchedule }) {
+export default function LaborCostsCard({ onViewSchedule, mode }) {
   const [view, setView] = useState('collapsed')
   const [selectedProperty, setSelectedProperty] = useState(null)
 
   function handleToggle() {
     if (view === 'collapsed') {
-      setView('expanded')
+      if (mode === 'single') {
+        setSelectedProperty(PROPERTIES[0])
+        setView('drilldown')
+      } else {
+        setView('expanded')
+      }
     } else {
       setView('collapsed')
       setSelectedProperty(null)
@@ -202,7 +207,9 @@ export default function LaborCostsCard({ onViewSchedule }) {
           <div className="flex items-start overflow-clip w-full">
             <div className="flex flex-1 flex-col items-start min-w-0">
               <p className="font-semibold leading-[22px] text-[16px] text-[#1d1e20] w-full">Labor Cost Alerts</p>
-              <p className="font-normal leading-[18px] text-[14px] text-[#6a6e73] w-full">2 Properties • 2 Departments</p>
+              <p className="font-normal leading-[18px] text-[14px] text-[#6a6e73] w-full">
+                {mode === 'single' ? `${(DEPT_DATA[PROPERTIES[0].code] || []).length} Departments` : '2 Properties • 2 Departments'}
+              </p>
             </div>
           </div>
 
@@ -228,7 +235,7 @@ export default function LaborCostsCard({ onViewSchedule }) {
 
           {/* Drilldown: department table */}
           {view === 'drilldown' && selectedProperty && (
-            <DepartmentTable property={selectedProperty} onBackToAll={handleBackToAll} onViewSchedule={onViewSchedule} />
+            <DepartmentTable property={selectedProperty} onBackToAll={handleBackToAll} onViewSchedule={onViewSchedule} mode={mode} />
           )}
         </div>
       </div>
