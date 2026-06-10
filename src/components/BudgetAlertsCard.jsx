@@ -221,7 +221,7 @@ export default function BudgetAlertsCard({ onViewTransactions }) {
           {/* Header */}
           <div className="flex items-start overflow-clip w-full">
             <div className="flex flex-1 flex-col items-start min-w-0">
-              <p className="font-semibold leading-[22px] text-[16px] text-[#1d1e20] w-full">Budget Alerts</p>
+              <p className="font-semibold leading-[22px] text-[16px] text-[#1d1e20] w-full">Budget Insights</p>
               <p className="font-normal leading-[18px] text-[14px] text-[#6a6e73] w-full">5 Properties • 19 COAs</p>
             </div>
           </div>

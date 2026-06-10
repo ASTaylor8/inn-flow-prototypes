@@ -201,7 +201,7 @@ export default function LaborCostsCard({ onViewSchedule }) {
           {/* Header */}
           <div className="flex items-start overflow-clip w-full">
             <div className="flex flex-1 flex-col items-start min-w-0">
-              <p className="font-semibold leading-[22px] text-[16px] text-[#1d1e20] w-full">Labor Costs at Risk</p>
+              <p className="font-semibold leading-[22px] text-[16px] text-[#1d1e20] w-full">Labor Cost Alerts</p>
               <p className="font-normal leading-[18px] text-[14px] text-[#6a6e73] w-full">2 Properties • 2 Departments</p>
             </div>
           </div>
