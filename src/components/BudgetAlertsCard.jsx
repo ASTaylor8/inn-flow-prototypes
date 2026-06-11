@@ -248,7 +248,9 @@ export default function BudgetAlertsCard({ onViewTransactions, mode }) {
           {/* Description */}
           <div className="flex items-start w-full">
             <p className="flex-1 font-normal leading-[18px] text-[14px] text-[#1d1e20]">
-              Each property has COAs that are trending to be over budget for this month.
+              {mode === 'single'
+                ? 'BWRA has 3 COAs currently over budget this month, with Food & Beverage the largest at $2,300 over. 3 additional line items are approaching their limits, including Guest Amenities at 95% used.'
+                : '9 COAs across all 5 properties are currently over budget this month, with Embassy Suites Chapel Hill\'s Food & Beverage exceeding by $4,500. An additional 10 COAs are approaching their monthly limits.'}
             </p>
           </div>
 

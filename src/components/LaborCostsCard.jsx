@@ -216,7 +216,9 @@ export default function LaborCostsCard({ onViewSchedule, mode }) {
           {/* Description */}
           <div className="flex items-start w-full">
             <p className="flex-1 font-normal leading-[18px] text-[14px] text-[#1d1e20]">
-              Each property has line items that are trending to be over budget for this month.
+              {mode === 'single'
+                ? 'Your Housekeeping department is at 90% of its operational labor budget with only $800 remaining for the period. Review current scheduling to prevent a potential overage before month end.'
+                : '2 properties have departments approaching their labor budget limits, with BWRA\'s Housekeeping at 90% and CYCA\'s Front Desk at 85% of their operational budgets. Consider adjusting staffing levels to avoid overages before the period closes.'}
             </p>
           </div>
 

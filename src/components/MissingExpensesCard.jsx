@@ -189,7 +189,9 @@ export default function MissingExpensesCard({ onViewAPInbox, mode }) {
           {/* Description */}
           <div className="flex items-start w-full">
             <p className="flex-1 font-normal leading-[18px] text-[14px] text-[#1d1e20]">
-              Over the past 12 months you've had at least one invoice for these vendors recurring every month.
+              {mode === 'single'
+                ? 'Gas & Electric Co LLC has not submitted their invoice this month despite recurring monthly billing. An invoice of $125.00 was expected on 06/01.'
+                : '1 recurring vendor invoice has not been received this month across your portfolio. Gas & Electric Co LLC at BWRA was expected on 06/01 with an invoice of $125.00.'}
             </p>
           </div>
 

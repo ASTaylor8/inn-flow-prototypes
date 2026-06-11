@@ -137,24 +137,6 @@ export default function Sidebar({ activeNav, onNavChange, mode, onModeToggle }) 
             <span className="font-normal text-[16px] leading-[22px] text-white whitespace-nowrap">Procurement</span>
           </button>
 
-          {/* Payroll */}
-          <button
-            onClick={() => onNavChange('payroll')}
-            className={`flex gap-[36px] h-[32px] items-center overflow-clip pl-[6px] w-full rounded-[3px] transition-colors ${activeNav === 'payroll' ? 'bg-[#5e6773]' : 'hover:bg-[#1d2939]'}`}
-          >
-            <img src={navPayroll} alt="" className="shrink-0 h-[14px] w-[22px]" />
-            <span className="font-normal text-[16px] leading-[22px] text-white whitespace-nowrap">Payroll</span>
-          </button>
-
-          {/* Sales */}
-          <button
-            onClick={() => onNavChange('sales')}
-            className={`flex gap-[35px] h-[32px] items-center overflow-clip pl-[6px] w-full rounded-[3px] transition-colors ${activeNav === 'sales' ? 'bg-[#5e6773]' : 'hover:bg-[#1d2939]'}`}
-          >
-            <img src={navSales} alt="" className="shrink-0 h-[14.26px] w-[23px]" />
-            <span className="font-normal text-[16px] leading-[22px] text-white whitespace-nowrap">Sales</span>
-          </button>
-
           {/* Facilities */}
           <button
             onClick={() => onNavChange('facilities')}
